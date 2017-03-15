@@ -1,4 +1,4 @@
-###What is Apache Spark?
+### What is Apache Spark?
 * Apache Spark is an open-source powerful distributed querying and processing engine. 
 * It provides flexibility and extensibility of MapReduce but at significantly higher speeds: Up to 100 times faster than Apache Hadoop when data is stored in memory and up to 10 times when accessing disk.
 * Apache Spark allows the user to read, transform, and aggregate data, as well as train and deploy sophisticated statistical models with ease. 
