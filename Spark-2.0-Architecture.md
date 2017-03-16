@@ -13,3 +13,16 @@ The Dataset API provides a type-safe, object-oriented programming interface. Dat
 > DataFrame = Dataset[Row]
 
 ![unified](https://www.safaribooksonline.com/library/view/learning-pyspark/9781786463708/graphics/B05793_01_07.jpg)
+
+## Introducing SparkSession
+* Older ways - SparkConf, SparkContext, SQLContext, and HiveContext to execute your various Spark queries for configuration, Spark context, SQL context, and Hive context respectively.
+* The SparkSession is essentially the combination of these contexts including StreamingContext.
+
+> For example, instead of writing:
+> df = sqlContext.read.format('json').load('py/test/sql/people.json')
+>     now you can write:
+> df = spark.read.format('json').load('py/test/sql/people.json')
+>     or:
+> df = spark.read.json('py/test/sql/people.json')
+
+**The SparkSession is now the entry point for reading data, working with metadata, configuring the session, and managing the cluster resources.**
