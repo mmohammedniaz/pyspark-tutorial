@@ -24,7 +24,7 @@ For example, instead of writing:
 
 New way,
  
->   df = spark.read.format('json').load('py/test/sql/people.json')
->   df = spark.read.json('py/test/sql/people.json')
+>  * df = spark.read.format('json').load('py/test/sql/people.json')
+>  * df = spark.read.json('py/test/sql/people.json')
 
 **The SparkSession is now the entry point for reading data, working with metadata, configuring the session, and managing the cluster resources.**
