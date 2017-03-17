@@ -10,4 +10,6 @@ Spark can be run in two modes: **Local and cluster**.
 
 * The driver then instructs the workers to execute their tasks and return the results to the driver when done. Before that happens, however, the driver prepares each task's closure: A set of variables and methods present on the driver for the worker to execute its task on the RDD.
 
+![driver executor](http://spark.apache.org/docs/latest/img/cluster-overview.png)
+
 * This set of variables and methods is inherently static within the executors' context, that is, each executor gets a copy of the variables and methods from the driver. If, when running the task, the executor alters these variables or overwrites the methods, it does so without affecting either other executors' copies or the variables and methods of the driver. This might lead to some unexpected behavior and runtime bugs that can sometimes be really hard to track down.
