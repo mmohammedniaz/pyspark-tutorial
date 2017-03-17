@@ -884,3 +884,8 @@ Items in the kth partition will get ids k, n+k, 2*n+k, ..., where n is the numbe
 
      sc.parallelize(["a", "b", "c", "d", "e"], 3).zipWithUniqueId().collect()
      [('a', 0), ('b', 1), ('c', 4), ('d', 2), ('e', 5)]
+
+
+### Transformation on Pair RDD
+
+Here, we talk about RDDs of key/value pairs, which are a common data type required for many operations in Spark. Key/value RDDs are commonly used to perform aggregations, and often we will do some initial ETL (extract, transform, and load) to get our data into a key/value format. Key/value RDDs expose new operations (e.g., counting up reviews for each product, grouping together data with the same key, and grouping together two different RDDs)
