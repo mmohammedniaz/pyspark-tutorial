@@ -3,6 +3,8 @@ There are two ways to create an RDD in PySpark: you can either .parallelize(...)
 
 Object holding data type - **ParallelCollectionRDD**
 
+***
+
 Or you can reference a file (or files) located either locally or somewhere externally:
 >    data_from_file = sc. textFile('/Users/drabast/Documents/VS14MORT.txt.gz',4)
 
