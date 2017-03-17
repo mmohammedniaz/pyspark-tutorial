@@ -26,8 +26,6 @@ So, we can mix almost anything: a tuple, a dict, or a list and Spark will not co
 
 Once you .collect() the dataset (that is, run an action to bring it back to the driver) you can access the data in the object as you would normally do in Python:
 
-data_heterogenous[1]['Porsche']
-It will produce the following:
-
+> data_heterogenous[1]['Porsche']
 100000
 The .collect() method returns all the elements of the RDD to the driver where it is serialized as a list.
