@@ -28,3 +28,10 @@ New way,
 >  * df = spark.read.json('py/test/sql/people.json')
 
 **The SparkSession is now the entry point for reading data, working with metadata, configuring the session, and managing the cluster resources.**
+
+## Tungsten phase 2
+* Memory Management and Binary Processing: Leveraging application semantics to manage memory explicitly and eliminate the overhead of the JVM object model and garbage collection
+* Cache-aware computation: Algorithms and data structures to exploit memory hierarchy
+* Code generation: Using code generation to exploit modern compilers and CPUs
+
+![tungsten](https://www.safaribooksonline.com/library/view/learning-pyspark/9781786463708/graphics/B05793_01_08.jpg)
