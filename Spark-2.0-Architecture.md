@@ -42,3 +42,8 @@ New way,
 ![a](https://www.safaribooksonline.com/library/view/learning-pyspark/9781786463708/graphics/B05793_01_09.jpg)
 
 * Therefore, to simplify Spark Streaming, there is now a single API that addresses both batch and streaming within the Apache Spark 2.0 release. More succinctly, the high-level streaming API is now built on top of the Apache Spark SQL Engine. It runs the same queries as you would with Datasets/DataFrames providing you with all the performance and optimization benefits as well as benefits such as event time, windowing, sessions, sources, and sinks.
+
+## Deployment : Continuous applications
+![deployment](https://www.safaribooksonline.com/library/view/learning-pyspark/9781786463708/graphics/B05793_01_10.jpg)
+
+Build end-to-end continuous applications, in which you can issue the same queries to batch processing as to real-time data, perform ETL, generate reports, update or track specific data in the stream.
