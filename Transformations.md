@@ -21,14 +21,6 @@ Return a new RDD that is reduced into numPartitions partitions.
      sc.parallelize([1, 2, 3, 4, 5], 3).coalesce(1).glom().collect()
      [[1, 2, 3, 4, 5]]
 
-#### cogroup(other, numPartitions=None)
-For each key k in self or other, return a resulting RDD that contains a tuple with the list of values for that key in self as well as other.
-
-     x = sc.parallelize([("a", 1), ("b", 4)])
-     y = sc.parallelize([("a", 2)])
-     [(a, tuple(map(list, b))) for a, b in x.cogroup(y).collect()]
-     [('a', ([1], [2])), ('b', ([4], []))]
-
 #### collect()
 Return a list that contains all of the elements in this RDD.
 
@@ -383,14 +375,6 @@ Return a new RDD by applying a function to each partition of this RDD, while tra
      rdd.mapPartitionsWithSplit(f).sum()
      6
 
-#### mapValues(f)
-Pass each value in the key-value pair RDD through a map function without changing the keys; this also retains the original RDD’s partitioning.
-
-     x = sc.parallelize([("a", ["apple", "banana", "lemon"]), ("b", ["grapes"])])
-     def f(x): return len(x)
-     x.mapValues(f).collect()
-     [('a', 3), ('b', 1)]
-
 #### max(key=None)
 Find the maximum item in this RDD.
 
@@ -683,20 +667,6 @@ Sorts this RDD by the given keyfunc
      sc.parallelize(tmp).sortBy(lambda x: x[1]).collect()
      [('a', 1), ('b', 2), ('1', 3), ('d', 4), ('2', 5)]
 
-#### sortByKey(ascending=True, numPartitions=None, keyfunc=<function <lambda> at 0x7fc35dbcf848>)
-Sorts this RDD, which is assumed to consist of (key, value) pairs. # noqa
-
-     tmp = [('a', 1), ('b', 2), ('1', 3), ('d', 4), ('2', 5)]
-     sc.parallelize(tmp).sortByKey().first()
-     ('1', 3)
-     sc.parallelize(tmp).sortByKey(True, 1).collect()
-     [('1', 3), ('2', 5), ('a', 1), ('b', 2), ('d', 4)]
-     sc.parallelize(tmp).sortByKey(True, 2).collect()
-     [('1', 3), ('2', 5), ('a', 1), ('b', 2), ('d', 4)]
-     tmp2 = [('Mary', 1), ('had', 2), ('a', 3), ('little', 4), ('lamb', 5)]
-     tmp2.extend([('whose', 6), ('fleece', 7), ('was', 8), ('white', 9)])
-     sc.parallelize(tmp2).sortByKey(True, 3, keyfunc=lambda k: k.lower()).collect()
-     [('a', 3), ('fleece', 7), ('had', 2), ('lamb', 5),...('white', 9), ('whose', 6)]
 
 #### stats()
 Return a StatCounter object that captures the mean, variance and count of the RDD’s elements in one operation.
@@ -714,14 +684,6 @@ Return each value in self that is not contained in other.
      y = sc.parallelize([("a", 3), ("c", None)])
      sorted(x.subtract(y).collect())
      [('a', 1), ('b', 4), ('b', 5)]
-
-#### subtractByKey(other, numPartitions=None)
-Return each (key, value) pair in self that has no pair with matching key in other.
-
-     x = sc.parallelize([("a", 1), ("b", 4), ("b", 5), ("a", 2)])
-     y = sc.parallelize([("a", 3), ("c", None)])
-     sorted(x.subtractByKey(y).collect())
-     [('b', 4), ('b', 5)]
 
 #### sum()
 Add up the elements in this RDD.
@@ -780,13 +742,6 @@ Note This method should only be used if the resulting array is expected to be sm
 #### toDebugString()
 A description of this RDD and its recursive dependencies for debugging.
 
-#### toLocalIterator()
-Return an iterator that contains all of the elements in this RDD. The iterator will consume as much memory as the largest partition in this RDD.
-
-     rdd = sc.parallelize(range(10))
-     [x for x in rdd.toLocalIterator()]
-     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
 #### top(num, key=None)
 Get the top N elements from an RDD.
 
@@ -800,42 +755,6 @@ Note It returns the list sorted in descending order.
      sc.parallelize([10, 4, 2, 12, 3]).top(3, key=str)
      [4, 3, 2]
 
-#### treeAggregate(zeroValue, seqOp, combOp, depth=2)
-Aggregates the elements of this RDD in a multi-level tree pattern.
-
-Parameters:	depth – suggested depth of the tree (default: 2)
-
-     add = lambda x, y: x + y
-     rdd = sc.parallelize([-5, -4, -3, -2, -1, 1, 2, 3, 4], 10)
-     rdd.treeAggregate(0, add, add)
-     -5
-     rdd.treeAggregate(0, add, add, 1)
-     -5
-     rdd.treeAggregate(0, add, add, 2)
-     -5
-     rdd.treeAggregate(0, add, add, 5)
-     -5
-     rdd.treeAggregate(0, add, add, 10)
-     -5
-
-#### treeReduce(f, depth=2)
-Reduces the elements of this RDD in a multi-level tree pattern.
-
-Parameters:	depth – suggested depth of the tree (default: 2)
-
-     add = lambda x, y: x + y
-     rdd = sc.parallelize([-5, -4, -3, -2, -1, 1, 2, 3, 4], 10)
-     rdd.treeReduce(add)
-     -5
-     rdd.treeReduce(add, 1)
-     -5
-     rdd.treeReduce(add, 2)
-     -5
-     rdd.treeReduce(add, 5)
-     -5
-     rdd.treeReduce(add, 10)
-     -5
-
 #### union(other)
 Return the union of this RDD and another one.
 
@@ -845,13 +764,6 @@ Return the union of this RDD and another one.
 
 #### unpersist()
 Mark the RDD as non-persistent, and remove all blocks for it from memory and disk.
-
-#### values()
-Return an RDD with the values of each tuple.
-
-     m = sc.parallelize([(1, 2), (3, 4)]).values()
-     m.collect()
-     [2, 4]
 
 #### variance()
 Compute the variance of this RDD’s elements.
@@ -889,3 +801,49 @@ Items in the kth partition will get ids k, n+k, 2*n+k, ..., where n is the numbe
 ### Transformation on Pair RDD
 
 Here, we talk about RDDs of key/value pairs, which are a common data type required for many operations in Spark. Key/value RDDs are commonly used to perform aggregations, and often we will do some initial ETL (extract, transform, and load) to get our data into a key/value format. Key/value RDDs expose new operations (e.g., counting up reviews for each product, grouping together data with the same key, and grouping together two different RDDs)
+
+#### cogroup(other, numPartitions=None)
+For each key k in self or other, return a resulting RDD that contains a tuple with the list of values for that key in self as well as other.
+
+     x = sc.parallelize([("a", 1), ("b", 4)])
+     y = sc.parallelize([("a", 2)])
+     [(a, tuple(map(list, b))) for a, b in x.cogroup(y).collect()]
+     [('a', ([1], [2])), ('b', ([4], []))]
+
+#### values()
+Return an RDD with the values of each tuple.
+
+     m = sc.parallelize([(1, 2), (3, 4)]).values()
+     m.collect()
+     [2, 4]
+
+#### subtractByKey(other, numPartitions=None)
+Return each (key, value) pair in self that has no pair with matching key in other.
+
+     x = sc.parallelize([("a", 1), ("b", 4), ("b", 5), ("a", 2)])
+     y = sc.parallelize([("a", 3), ("c", None)])
+     sorted(x.subtractByKey(y).collect())
+     [('b', 4), ('b', 5)]
+
+#### sortByKey(ascending=True, numPartitions=None, keyfunc=<function <lambda> at 0x7fc35dbcf848>)
+Sorts this RDD, which is assumed to consist of (key, value) pairs. # noqa
+
+     tmp = [('a', 1), ('b', 2), ('1', 3), ('d', 4), ('2', 5)]
+     sc.parallelize(tmp).sortByKey().first()
+     ('1', 3)
+     sc.parallelize(tmp).sortByKey(True, 1).collect()
+     [('1', 3), ('2', 5), ('a', 1), ('b', 2), ('d', 4)]
+     sc.parallelize(tmp).sortByKey(True, 2).collect()
+     [('1', 3), ('2', 5), ('a', 1), ('b', 2), ('d', 4)]
+     tmp2 = [('Mary', 1), ('had', 2), ('a', 3), ('little', 4), ('lamb', 5)]
+     tmp2.extend([('whose', 6), ('fleece', 7), ('was', 8), ('white', 9)])
+     sc.parallelize(tmp2).sortByKey(True, 3, keyfunc=lambda k: k.lower()).collect()
+     [('a', 3), ('fleece', 7), ('had', 2), ('lamb', 5),...('white', 9), ('whose', 6)]
+
+#### mapValues(f)
+Pass each value in the key-value pair RDD through a map function without changing the keys; this also retains the original RDD’s partitioning.
+
+     x = sc.parallelize([("a", ["apple", "banana", "lemon"]), ("b", ["grapes"])])
+     def f(x): return len(x)
+     x.mapValues(f).collect()
+     [('a', 3), ('b', 1)]
