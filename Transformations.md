@@ -462,9 +462,23 @@ Reduces the elements of this RDD using the specified commutative and associative
      from operator import add
      sc.parallelize([1, 2, 3, 4, 5]).reduce(add)
      15
-     sc.parallelize((2 for _ in range(10))).map(lambda x: 1).cache().reduce(add)
-     10
-     sc.parallelize([]).reduce(add)
+     sc.parallelize([1, 2, 3, 4, 5]).reduce(lambda x, y: x + y)
+
+     A word of caution is necessary here. The functions passed as a reducer need to be associative, that is, when the      order of elements is changed the result does not, and commutative, that is, changing the order of operands does not change the result either.
+
+     The example of the associativity rule is (5 + 2) + 3 = 5 + (2 + 3), and of the commutative is 5 + 2 + 3 = 3 + 2 + 5.    Thus, you need to be careful about what functions you pass to the reducer.
+
+     If you ignore the preceding rule, you might run into trouble (assuming your code runs at all). For example, let's assume we have the following RDD (with one partition only!):
+
+     data_reduce = sc.parallelize([1, 2, .5, .1, 5, .2], 1)
+     If we were to reduce the data in a manner that we would like to divide the current result by the subsequent one, we would expect a value of 10:
+
+     works = data_reduce.reduce(lambda x, y: x / y)
+However, if you were to partition the data into three partitions, the result will be wrong:
+
+     data_reduce = sc.parallelize([1, 2, .5, .1, 5, .2], 3)
+     data_reduce.reduce(lambda x, y: x / y)
+     It will produce 0.004.
 
 #### reduceByKey(func, numPartitions=None, partitionFunc=<function portable_hash at 0x7fc35dbc8e60>)
 Merge the values for each key using an associative and commutative reduce function.
