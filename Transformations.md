@@ -214,13 +214,13 @@ Note If you are grouping in order to perform an aggregation (such as a sum or av
         
 * The combination function (combOp) - combines result from different partitions.
 
-     x is a tuple x[0] is sum of numbers, x[1] - is number of elements
-     seqOp = (lambda x, y: (x[0] + y, x[1] + 1))
-     combOp = (lambda x, y: (x[0] + y[0], x[1] + y[1]))
-     sc.parallelize([1, 2, 3, 4]).aggregate((0, 0), seqOp, combOp)
-     (10, 4)
-     sc.parallelize([]).aggregate((0, 0), seqOp, combOp)
-     (0, 0)
+    x is a tuple x[0] is sum of numbers, x[1] - is number of elements
+    seqOp = (lambda x, y: (x[0] + y, x[1] + 1))
+    combOp = (lambda x, y: (x[0] + y[0], x[1] + y[1]))
+    sc.parallelize([1, 2, 3, 4]).aggregate((0, 0), seqOp, combOp)
+    (10, 4)
+    sc.parallelize([]).aggregate((0, 0), seqOp, combOp)
+    (0, 0)
 
 #### aggregateByKey(zeroValue, seqFunc, combFunc, numPartitions=None, partitionFunc)
 * Aggregate the values of each key, using given combine functions and a neutral “zero value”. 
