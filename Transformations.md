@@ -54,6 +54,13 @@ Note V and C can be different – for example, one might group an RDD of type (I
      sorted(x.combineByKey(str, add, add).collect())
      [('a', '11'), ('b', '1')]
 
+     data = sc.parallelize( [(0, 2.), (0, 4.), (1, 0.), (1, 10.), (1, 20.)] )
+     sumCount = data.combineByKey(lambda value: (value, 1),
+                             lambda x, value: (x[0] + value, x[1] + 1),
+                             lambda x, y: (x[0] + y[0], x[1] + y[1]))
+     averageByKey = sumCount.map(lambda (label, (value_sum, count)): (label, value_sum / count))
+     print averageByKey.collectAsMap()
+
 aggregateByKey() is almost identical to reduceByKey() (both calling combineByKey() behind the scenes), except you give a starting value for aggregateByKey()
 
 #### count()
