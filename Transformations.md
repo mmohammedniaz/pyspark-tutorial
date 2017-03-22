@@ -54,6 +54,7 @@ Note V and C can be different – for example, one might group an RDD of type (I
      sorted(x.combineByKey(str, add, add).collect())
      [('a', '11'), ('b', '1')]
 
+aggregateByKey() is almost identical to reduceByKey() (both calling combineByKey() behind the scenes), except you give a starting value for aggregateByKey()
 
 #### count()
 Return the number of elements in this RDD.
@@ -111,24 +112,6 @@ Pass each value in the key-value pair RDD through a flatMap function without cha
      x.flatMapValues(f).collect()
      [('a', 'x'), ('a', 'y'), ('a', 'z'), ('b', 'p'), ('b', 'r')]
 
-#### fold(zeroValue, op)
-Aggregate the elements of each partition, and then the results for all the partitions, using a given associative function and a neutral “zero value.”
-
-The function op(t1, t2) is allowed to modify t1 and return it as its result value to avoid object allocation; however, it should not modify t2.
-
-This behaves somewhat differently from fold operations implemented for non-distributed collections in functional languages like Scala. This fold operation may be applied to partitions individually, and then fold those results into the final result, rather than apply the fold to each element sequentially in some defined ordering. For functions that are not commutative, the result may differ from that of a fold applied to a non-distributed collection.
-
-     from operator import add
-     sc.parallelize([1, 2, 3, 4, 5]).fold(0, add)
-     15
-
-#### foldByKey(zeroValue, func, numPartitions=None, partitionFunc=<function portable_hash at 0x7fc35dbc8e60>)
-Merge the values for each key using an associative function “func” and a neutral “zeroValue” which may be added to the result an arbitrary number of times, and must not change the result (e.g., 0 for addition, or 1 for multiplication.).
-
-     rdd = sc.parallelize([("a", 1), ("b", 1), ("a", 1)])
-     from operator import add
-     sorted(rdd.foldByKey(0, add).collect())
-     [('a', 2), ('b', 1)]
 
 #### foreach(f)
 Applies a function to all elements of this RDD.
@@ -220,8 +203,7 @@ Note If you are grouping in order to perform an aggregation (such as a sum or av
 *     combOp = (lambda x, y: (x[0] + y[0], x[1] + y[1]))
 *     sc.parallelize([1, 2, 3, 4]).aggregate((0, 0), seqOp, combOp)
 *     (10, 4)
-*     sc.parallelize([]).aggregate((0, 0), seqOp, combOp)
-*     (0, 0)
+
 
 #### aggregateByKey(zeroValue, seqFunc, combFunc, numPartitions=None, partitionFunc)
 * Aggregate the values of each key, using given combine functions and a neutral “zero value”. 
