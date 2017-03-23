@@ -292,21 +292,11 @@ Note If you are grouping in order to perform an aggregation (such as a sum or av
      [('a', [1, 1]), ('b', [1])]
 
 #### aggregate(zeroValue, seqOp, combOp)
-* Aggregate the elements of each partition, and then the results for all the partitions, using a given combine functions and a neutral “zero value.”
+* Compared to reduce() & fold(), the aggregate() function has the advantage, it can return different Type vis-a-vis the RDD Element Type(ie Input Element type)
+* In this example, the RDD element type is (String, Int) whereas the return type is Int
 
-* The functions op(t1, t2) is allowed to modify t1 and return it as its result value to avoid object allocation; however, it should not modify t2.
-
-* The first function (seqOp) can return a different result type, U, than the type of this RDD. Thus, we need one operation for merging a T into an U and one operation for merging two U
-        
-* The combination function (combOp) - combines result from different partitions.
-
-      x is a tuple x[0] is sum of numbers, x[1] - is number of elements
-      seqOp = (lambda x, y: (x[0] + y, x[1] + 1))
-
-*     combOp = (lambda x, y: (x[0] + y[0], x[1] + y[1]))
-*     sc.parallelize([1, 2, 3, 4]).aggregate((0, 0), seqOp, combOp)
-*     (10, 4)
-
+    data = sc.parallelize([('awi',4),('bcd',6),('jkl',88),('qek',99)])
+    data.aggregate(5,lambda x,y: x + y[1], lambda x,y: x + y)  
 
 #### aggregateByKey(zeroValue, seqFunc, combFunc, numPartitions=None, partitionFunc)
 * Aggregate the values of each key, using given combine functions and a neutral “zero value”. 
