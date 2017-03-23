@@ -340,7 +340,11 @@ Return a new RDD by applying a function to each element of this RDD.
      [('a', 1), ('b', 1), ('c', 1)]
 
 #### mapPartitions(f, preservesPartitioning=False)
-Return a new RDD by applying a function to each partition of this RDD.
+Return a new RDD by applying a function to each partition of this RDD. mapPartitions() can be used as an alternative to map() & foreach(). mapPartitions() is called once for each Partition unlike map() & foreach() which is called for each element in the RDD. The main advantage being that, we can do initialization on Per-Partition basis instead of per-element basis(as done by map() & foreach())
+
+Consider the case of Initializing a database. If we are using map() or foreach(), the number of times we would need to initialize will be equal to the no of elements in RDD. Whereas if we use mapPartitions(), the no of times we would need to initialize would be equal to number of Partitions
+
+We get Iterator as an argument for mapPartition, through which we can iterate through all the elements in a Partition.
 
      rdd = sc.parallelize([1, 2, 3, 4], 2)
      def f(iterator): yield sum(iterator)
@@ -350,20 +354,9 @@ Return a new RDD by applying a function to each partition of this RDD.
 #### mapPartitionsWithIndex(f, preservesPartitioning=False)
 Return a new RDD by applying a function to each partition of this RDD, while tracking the index of the original partition.
 
-     rdd = sc.parallelize([1, 2, 3, 4], 4)
-     def f(splitIndex, iterator): yield splitIndex
-     rdd.mapPartitionsWithIndex(f).sum()
-     6
-
-#### mapPartitionsWithSplit(f, preservesPartitioning=False)
-Deprecated: use mapPartitionsWithIndex instead.
-
-Return a new RDD by applying a function to each partition of this RDD, while tracking the index of the original partition.
-
-     rdd = sc.parallelize([1, 2, 3, 4], 4)
-     def f(splitIndex, iterator): yield splitIndex
-     rdd.mapPartitionsWithSplit(f).sum()
-     6
+     rdd = sc.parallelize([1, 2, 3, 4], 2)
+     def f(splitIndex, iterator): yield (splitIndex,sum(iterator))
+     rdd.mapPartitionsWithIndex(f).collect()
 
 #### max(key=None)
 Find the maximum item in this RDD.
@@ -381,15 +374,6 @@ Compute the mean of this RDD’s elements.
 
      sc.parallelize([1, 2, 3]).mean()
      2.0
-
-#### meanApprox(timeout, confidence=0.95)
-Note Experimental
-Approximate operation to return the mean within a timeout or meet the confidence.
-
-     rdd = sc.parallelize(range(1000), 10)
-     r = sum(range(1000)) / 1000.0
-     abs(rdd.meanApprox(1000) - r) / r < 0.05
-     True
 
 #### min(key=None)
 Find the minimum item in this RDD.
@@ -447,7 +431,7 @@ split RDDs in a list
      True
 
 #### reduce(f)
-Reduces the elements of this RDD using the specified commutative and associative binary operator. Currently reduces partitions locally.
+Reduces the elements of this RDD using the specified commutative and associative binary operator. Currently reduces partitions locally. Reduce(<function type>) takes a Function Type ; which takes 2 elements of RDD Element Type as argument & returns the Element of same type
 
      from operator import add
      sc.parallelize([1, 2, 3, 4, 5]).reduce(add)
@@ -469,6 +453,10 @@ However, if you were to partition the data into three partitions, the result wil
      data_reduce = sc.parallelize([1, 2, .5, .1, 5, .2], 3)
      data_reduce.reduce(lambda x, y: x / y)
      It will produce 0.004.
+
+### fold
+fold() is similar to reduce except that it takes an 'Zero value'(Think of it as a kind of initial value) which will be used in the initial call on each Partition
+
 
 #### reduceByKey(func, numPartitions=None, partitionFunc=<function portable_hash at 0x7fc35dbc8e60>)
 Merge the values for each key using an associative and commutative reduce function.
