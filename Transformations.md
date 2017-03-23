@@ -1,5 +1,101 @@
 **Transformations shape your dataset. These include mapping, filtering, joining, and transcoding the values in your dataset. In this section, we will showcase some of the transformations available on RDDs.**
 
+### Concepts
+* Action & Transformation
+* Combiner
+* Driver Program
+* Executor
+* Job
+* Lazy Evaluation
+* Lineage Graph
+* Modes of Operation
+* RDD
+* RDD Persistence
+* RDD Types
+* Serialization
+* Stage
+* Task
+
+### Initialization
+* cache()
+* persist()
+* SparkConf
+* parallelize()
+* textFile()
+
+### Action (RDD)
+* aggregate()
+* collect()
+* count()
+* countByValue()
+* first()
+* fold()
+* foreach()
+* reduce()
+* saveAsTextFile()
+* take()
+* takeOrdered()
+* takeSample()
+* top()
+
+### Action (PairRDDFunctions)
+* collectAsMap()
+* countByKey()
+* lookup()
+
+### Map Operations
+* flatMap()
+* map()
+* mapPartitions()
+* mapPartitionsWithIndex()
+
+### Set Operations
+* cartesian()
+* distinct()
+* intersection()
+* subtract()
+* union()
+
+### Other Operations
+* filter()
+* groupBy()
+* toDebugString
+
+### PairRDDFunctions (Single RDD)
+* combineByKey()
+* foldByKey()
+* groupByKey()
+* mapValues()
+* reduceByKey()
+
+### PairRDDFunctions (Two RDD)
+* cogroup()
+* join()
+* leftOuterJoin()
+* rightOuterJoin()
+
+### Sorting
+* sortByKey()
+* takeOrdered()
+* top()
+
+### Partition
+* General
+* Hash-Partition
+* Partitioner set Operations
+* Partitioner unset Operations
+* range-partition
+* Shuffling
+* coalesce()
+* partitionBy()
+* repartition()
+
+### Shared Variables
+* Accumlators
+* Broadcast Variable
+
+***
+
 #### cache()
 Persist this RDD with the default storage level (MEMORY_ONLY).
 
