@@ -460,6 +460,7 @@ fold() is similar to reduce except that it takes an 'Zero value'(Think of it as 
     rdd = sc.parallelize([1, 2, 3, 4], 3)
     rdd.fold(3, lambda x,y: x +y)
 
+
 #### reduceByKey(func, numPartitions=None, partitionFunc=<function portable_hash at 0x7fc35dbc8e60>)
 Merge the values for each key using an associative and commutative reduce function.
 
