@@ -457,6 +457,8 @@ However, if you were to partition the data into three partitions, the result wil
 ### fold
 fold() is similar to reduce except that it takes an 'Zero value'(Think of it as a kind of initial value) which will be used in the initial call on each Partition
 
+    rdd = sc.parallelize([1, 2, 3, 4], 3)
+    rdd.fold(3, lambda x,y: x +y)
 
 #### reduceByKey(func, numPartitions=None, partitionFunc=<function portable_hash at 0x7fc35dbc8e60>)
 Merge the values for each key using an associative and commutative reduce function.
@@ -468,16 +470,6 @@ Output will be partitioned with numPartitions partitions, or the default paralle
      from operator import add
      rdd = sc.parallelize([("a", 1), ("b", 1), ("a", 1)])
      sorted(rdd.reduceByKey(add).collect())
-     [('a', 2), ('b', 1)]
-
-#### reduceByKeyLocally(func)
-Merge the values for each key using an associative and commutative reduce function, but return the results immediately to the master as a dictionary.
-
-This will also perform the merging locally on each mapper before sending results to a reducer, similarly to a “combiner” in MapReduce.
-
-     from operator import add
-     rdd = sc.parallelize([("a", 1), ("b", 1), ("a", 1)])
-     sorted(rdd.reduceByKeyLocally(add).items())
      [('a', 2), ('b', 1)]
 
 #### repartition(numPartitions)
