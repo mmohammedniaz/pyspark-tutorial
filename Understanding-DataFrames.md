@@ -25,3 +25,39 @@ In Apache Spark, a DataFrame is a distributed collection of rows under named col
 * It has API support for different languages like Python, R, Scala, Java.
  
 ![](https://www.analyticsvidhya.com/wp-content/uploads/2016/10/DataFrame-in-Spark.png)
+
+### Important classes of Spark SQL and DataFrames:
+
+* **pyspark.sql.SQLContext** Main entry point for DataFrame and SQL functionality.
+* **pyspark.sql.DataFrame** A distributed collection of data grouped into named columns.
+* **pyspark.sql.Column** A column expression in a DataFrame.
+* **pyspark.sql.Row** A row of data in a DataFrame.
+* **pyspark.sql.GroupedData** Aggregation methods, returned by DataFrame.groupBy().
+* **pyspark.sql.DataFrameNaFunctions** Methods for handling missing data (null values).
+* **pyspark.sql.DataFrameStatFunctions** Methods for statistics functionality.
+* **pyspark.sql.functions** List of built-in functions available for DataFrame.
+* **pyspark.sql.types** List of data types available.
+* **pyspark.sql.Window** For working with window functions.
+
+https://databricks.com/blog/2016/07/14/a-tale-of-three-apache-spark-apis-rdds-dataframes-and-datasets.html
+
+### Various Types of deployment
+* YARN as cluster manager - Don't come inbuilt
+* Mesos as cluster manager - Don't come inbuilt
+* Spark Standalone - This one is provided by spark & comes bundled with Spark
+
+##### master
+URL of cluster, suppose everything is running in local machine - "local[4]" (run locally with 4 cores)
+spark://master:7077 - You have a standalone cluster whose url is this.
+
+##### config
+This guy will contain all key-value configuration pair
+SparkSession.builder.config(conf=SparkConf())
+config("info","great")
+
+#### sparkSession - spark
+Wapper around SqlContext 
+#### SparkContext - sc
+Entry point to entire spark
+#### SqlContext - sqlContext
+Entry point for working with structured data
