@@ -6,3 +6,4 @@
 6. [Understanding Deployment & Program Behaviour](https://github.com/awantik/pyspark-tutorial/wiki/Global-versus-local-scope)
 7. [RDD Transformation & Action](https://github.com/awantik/pyspark-tutorial/wiki/Transformations)
 8. [Assignments 1](https://github.com/awantik/pyspark-tutorial/wiki/Assignments)
+9. [Introduction to DataFrame](https://github.com/awantik/pyspark-tutorial/wiki/Understanding-DataFrames)
