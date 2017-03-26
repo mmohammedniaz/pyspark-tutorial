@@ -1,8 +1,8 @@
 ### Data Information
 
-* User_ID	        -User ID
-* Product_ID	        -Product ID
-* Gender	        -Sex of User
+* User_ID	        User ID
+* Product_ID	        Product ID
+* Gender	        Sex of User
 * Age	        Age in bins
 * Occupation	Occupation (Masked)
 * City_Category	Category of the City (A,B,C)
