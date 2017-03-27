@@ -24,7 +24,6 @@ MLlib standardizes APIs for machine learning algorithms to make it easier to com
 * an Estimator implements a method fit(), which accepts a DataFrame and produces a Model, which is a Transformer
 * Eg - LogisticRegression is an estimator, and calling fit on it creates a LogisticRegressionModel, which is a Mode & hence a transformer.
 *
-
-[ML](http://spark.apache.org/docs/latest/img/ml-Pipeline.png)
+![ml](http://spark.apache.org/docs/latest/img/ml-Pipeline.png)
 
 
