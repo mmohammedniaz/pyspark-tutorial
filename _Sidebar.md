@@ -9,3 +9,4 @@
 9. [Best Practices -1 ](https://github.com/awantik/pyspark-tutorial/wiki/GroupByKey-vs-ReduceByKey)
 10. [Introduction to DataFrame](https://github.com/awantik/pyspark-tutorial/wiki/Understanding-DataFrames)
 11. [PySpark SQL](https://github.com/awantik/pyspark-tutorial/wiki/PySpark-SQL-Module)
+12. [Pandas to DataFrames](https://github.com/awantik/pyspark-tutorial/wiki/Migrating-from-Pandas-to-Apache-Spark%E2%80%99s-DataFrame)
