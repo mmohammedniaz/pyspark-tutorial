@@ -27,3 +27,4 @@ MLlib standardizes APIs for machine learning algorithms to make it easier to com
 ![ml](http://spark.apache.org/docs/latest/img/ml-Pipeline.png)
 
 
+![ML2](http://spark.apache.org/docs/latest/img/ml-PipelineModel.png)
