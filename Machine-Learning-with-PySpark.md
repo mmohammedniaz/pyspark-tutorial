@@ -7,6 +7,8 @@
 * Utilities: linear algebra, statistics, data handling, etc.
 
 ### ML Pipelines
+* A Pipeline in PySpark ML is a concept of an end-to-end transformation-estimation process (with distinct stages) that ingests some raw data (in a DataFrame form), performs the necessary data carpentry (transformations), and finally estimates a statistical model (estimator).
+* A Pipeline can be purely transformative, that is, consisting of Transformers only.
 MLlib standardizes APIs for machine learning algorithms to make it easier to combine multiple algorithms into a single pipeline.
 * DataFrame - Storage mechanism
 * Transformer - An algorithm which converts one DataFrame to another DF. Eg. model is a transformer
