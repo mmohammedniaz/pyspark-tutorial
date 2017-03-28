@@ -28,3 +28,11 @@ MLlib standardizes APIs for machine learning algorithms to make it easier to com
 
 
 ![ML2](http://spark.apache.org/docs/latest/img/ml-PipelineModel.png)
+
+### Parameters
+* MLlib Estimators and Transformers use a uniform API for specifying parameters.
+
+### Saving and Loading Pipelines
+* Pipelines & Models once created can be persisted in a location.
+* Persisted pipelines/models can be loaded & used again.
+* Pipelines/Models can be created using R & used using Scala/Python or vice-versa.
