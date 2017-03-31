@@ -13,6 +13,7 @@ Discretized Stream or DStream is the basic abstraction provided by Spark Streami
 
 ![dstream](http://spark.apache.org/docs/latest/img/streaming-dstream-ops.png)
 
+#### Transformations
 * map(func)	Return a new DStream by passing each element of the source DStream through a function func.
 * flatMap(func)	Similar to map, but each input item can be mapped to 0 or more output items.
 * filter(func)	Return a new DStream by selecting only the records of the source DStream on which func returns true.
@@ -26,3 +27,10 @@ Discretized Stream or DStream is the basic abstraction provided by Spark Streami
 * cogroup(otherStream, [numTasks])	When called on a DStream of (K, V) and (K, W) pairs, return a new DStream of (K, Seq[V], Seq[W]) tuples.
 * transform(func)	Return a new DStream by applying a RDD-to-RDD function to every RDD of the source DStream. This can be used to do arbitrary RDD operations on the DStream.
 updateStateByKey(func)	Return a new "state" DStream where the state for each key is updated by applying the given function on the previous state of the key and the new values for the key. This can be used to maintain arbitrary state data for each key.
+
+#### Output Operations on DStreams
+* print()
+* saveAsTextFiles(prefix, [suffix])
+* saveAsObjectFiles(prefix, [suffix])
+* saveAsHadoopFiles(prefix, [suffix])
+* foreachRDD(func)
