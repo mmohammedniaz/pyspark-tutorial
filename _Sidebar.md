@@ -14,3 +14,4 @@
 14. [Transformers](https://github.com/awantik/pyspark-tutorial/wiki/Feature-Transformers)
 15. [Estimators](https://github.com/awantik/pyspark-tutorial/wiki/Estimators)
 15. [Spark Streaming](https://github.com/awantik/pyspark-tutorial/wiki/Spark-Streaming)
+16. [Structured Streaming](https://github.com/awantik/pyspark-tutorial/wiki/Structured-Streaming)
