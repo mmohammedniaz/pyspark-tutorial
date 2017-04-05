@@ -15,3 +15,5 @@
 15. [Estimators](https://github.com/awantik/pyspark-tutorial/wiki/Estimators)
 15. [Spark Streaming](https://github.com/awantik/pyspark-tutorial/wiki/Spark-Streaming)
 16. [Structured Streaming](https://github.com/awantik/pyspark-tutorial/wiki/Structured-Streaming)
+17. [GraphX & GraphFrames](https://github.com/awantik/pyspark-tutorial/wiki/Data-Processing-Architectures)
+18. [Data Processing Architectures](https://github.com/awantik/pyspark-tutorial/wiki/Data-Processing-Architectures)
