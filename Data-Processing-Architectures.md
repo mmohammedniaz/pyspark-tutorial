@@ -27,3 +27,28 @@
 ## Kappa Architecture
 
 ![Kappa](https://www.ericsson.com/research-blog/wp-content/uploads/2015/11/LambdaKappa1_2.png)
+
+  1. One of the important motivations for inventing the Kappa architecture was to avoid maintaining two separate code bases for the batch and speed layers. 
+  2. The key idea is to handle both real-time data processing and continuous data reprocessing using a single stream processing engine. 
+  3. Data reprocessing is an important requirement for making visible the effects of code changes on the results. As a consequence, the Kappa architecture is composed of only two layers: stream processing and serving. 
+  4. The stream processing layer runs the stream processing jobs. Normally, a single stream processing job is run to enable real-time data processing. 
+  5. Data reprocessing is only done when some code of the stream processing job needs to be modified. This is achieved by running another modified stream processing job and replying all previous data. 
+  6. Finally, similarly to the Lambda architecture, the serving layer is used to query the results.
+
+## Implementation Technologies - Pre Apache Spark 2.x era
+  1. Data can be ingested into the Lambda and Kappa architectures using a publish-subscribe messaging system, for example Apache Kafka. 
+  2. The data and model storage can be implemented using persistent storage, like HDFS. A high-latency batch system such as Hadoop MapReduce can be used in the batch layer of the Lambda architecture to train models from scratch. 
+  3. Low-latency systems, for instance Apache Storm, Apache Samza, and Spark Streaming can be used to implement incremental model updates in the speed layer. The same technologies can be used to implement the stream processing layer in the Kappa architecture.
+
+## Implementation Technologies - Apache Spark 2.x era
+  1. Apache Spark can be used as a common platform to develop the batch and speed layers in the Lambda architecture. 
+  2. This way, much of the code can be shared between the batch and speed layers. 
+  3. The serving layer can be implemented using a NoSQL database, such as Apache HBase, and an SQL query engine like Apache Drill.
+
+## Which one to choose ?
+
+* A very simple case to consider is when the algorithms applied to the real-time data and to the historical data are identical. Then it is clearly very beneficial to use the same code base to process historical and real-time data, and therefore to implement the use-case using the Kappa architecture.
+
+* The algorithms used to process historical data and real-time data are not always identical. In some cases, the batch algorithm can be optimized thanks to the fact that it has access to the complete historical dataset, and then outperform the implementation of the real-time algorithm. Here, choosing between Lambda and Kappa becomes a choice between favoring batch execution performance over code base simplicity.
+
+ * Machine learning application where generation of the batch model requires so much time and resources that the best result achievable in real-time is computing and approximated updates of that model. In such cases, the batch and real-time layers cannot be merged, and the Lambda architecture must be used.
