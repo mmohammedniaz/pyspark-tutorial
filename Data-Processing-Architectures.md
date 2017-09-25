@@ -1,3 +1,5 @@
+![](https://github.com/awantik/pyspark-tutorial/blob/master/zekeLabs_Logo.png)
+
 ### Goals of Big Data Processing Architecture
 * A good real-time data processing architecture needs to be fault-tolerant and scalable.
 * It needs to support batch and incremental updates, and must be extensible.
